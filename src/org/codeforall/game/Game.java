@@ -16,18 +16,17 @@ public class Game {
     private boolean gameOver;
     private int currentScore = 0;
     private static int highScore = 0;
-    public final int MAXX = 1000;
-    public final int MAXY = 500;
-    public final int PADDING = 10;
+    public static final int MAXX = 1580;
+    public static final int MAXY = 1020;
 
     //private Keyboard
 
     public void init() {
         Canvas.setMaxX(MAXX);
         Canvas.setMaxY(MAXY);
-        rectangle = new Rectangle(0,0,MAXX+PADDING,MAXY+PADDING);
-        rectangle.draw();
+        new Background();
         player = new Player();
+        new MyKeyboardHandler(player);
         //initialize keyboard with player as argument
         //show highscore
         //if key press return

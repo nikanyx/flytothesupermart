@@ -13,15 +13,22 @@ public class Obstacle {
     public Obstacle(ObstacleType obstacleType){
         this.obstacleType = obstacleType;
         obstaclePosition = new ObstaclePosition(obstacleType.getHeight(),obstacleType.getyPos());
-    }
-
-    public void genRectangle(){
-        topRect = new Rectangle(1010,0,10,obstacleType.getHeight());
-        botRect = new Rectangle(1010,obstacleType.getyPos(),10,500);
+        topRect = new Rectangle(Game.MAXX+10,0,40, obstacleType.getHeight());
+        botRect = new Rectangle(Game.MAXX+10,obstacleType.getyPos(),40,Game.MAXY-obstacleType.getyPos());//Game.MAXY-obstacleType.getyPos());
         topRect.setColor(Color.BLACK);
-        botRect.setColor(Color.BLACK);
+        botRect.setColor(Color.BLUE);
         topRect.fill();
         botRect.fill();
+    }
+
+    public void move(int x){
+        topRect.translate(x,0);
+        botRect.translate(x,0);
+        obstaclePosition.setxPos(x);
+    }
+
+    public int getPos(){
+        return obstaclePosition.getxPos();
     }
 
 }

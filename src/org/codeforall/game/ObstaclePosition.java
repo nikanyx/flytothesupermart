@@ -10,4 +10,12 @@ public class ObstaclePosition {
         this.height = height;
         this.yPos = yPos;
     }
+
+    public void setxPos(int x){
+        xPos += x;
+    }
+
+    public int getxPos(){
+        return xPos;
+    }
 }

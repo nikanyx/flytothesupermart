@@ -1,5 +1,6 @@
 package org.codeforall.game;
 
+
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Background {
@@ -12,5 +13,9 @@ public class Background {
     public Background(){
         background = new Picture(0,0, "resources/background-city.jpg");
         background.draw();
+    }
+
+    public void move(){
+        background.translate(-1,0);
     }
 }

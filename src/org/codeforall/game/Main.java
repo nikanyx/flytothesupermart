@@ -8,9 +8,11 @@ public class Main {
         //player and keyboard are initialized first
 
         Game game = new Game();
-        while (true) {
+        //while (true) {
             game.init();
-        }
+        //}
+
+
 
     }
 }

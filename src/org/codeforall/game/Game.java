@@ -3,30 +3,28 @@ package org.codeforall.game;
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.w3c.dom.css.Rect;
 
 public class Game {
     //starts game, background, obstacles
     private int delay = 200;
-    private Rectangle rectangle;
-    private Background gameBg;
     private Player player;
-    private Rectangle obstacle;
-    private Rectangle secondObstacle;
-    private boolean gameOver;
+    private boolean gameOver = false;
     private int currentScore = 0;
     private static int highScore = 0;
     public static final int MAXX = 1580;
     public static final int MAXY = 1020;
+    //private ObjectFactory objectFactory = new ObjectFactory();
+    private Obstacle[] obstacles = new Obstacle[3];
+    Background background = new Background();
 
     //private Keyboard
 
     public void init() {
         Canvas.setMaxX(MAXX);
         Canvas.setMaxY(MAXY);
-        new Background();
         player = new Player();
         new MyKeyboardHandler(player);
+
         //initialize keyboard with player as argument
         //show highscore
         //if key press return
@@ -39,19 +37,16 @@ public class Game {
     }
 
     private void start() throws InterruptedException {
-        gameBg = new Background();
         //generate obstacles
-        obstacle = new Rectangle(1010,250,100,10);
-        obstacle.setColor(Color.BLACK);
-        obstacle.fill();
-        secondObstacle = new Rectangle(1010,250,100,10);
-        secondObstacle.setColor(Color.BLUE);
-        secondObstacle.fill();
+        for (int i = 0; i < obstacles.length; i++){
+            obstacles[i] = ObjectFactory.getNewObstacle();
+        }
         //collisionDetector = new CollisionDetector(player);
         //collisionDetector.check(obstacle linked list)
         while (!gameOver) {
             // Pause for a while
             Thread.sleep(delay);
+            background.move();
             moveObstacles();
             //if player collision
         }
@@ -62,10 +57,26 @@ public class Game {
 
     private void moveObstacles(){
 
-        obstacle.translate(-100,0);
-        if (obstacle.getX() <= 500) {
-            secondObstacle.translate(-100,0);
+        if (obstacles[0].getPos() > -40) {
+            obstacles[0].move(-100);
+           // System.out.println(obstacles[0].getPos());
         }
+        else {
+            obstacles[0] = ObjectFactory.getNewObstacle();
+        }
+        if (obstacles[0].getPos() == 880 || (obstacles[1].getPos() < 1500 && obstacles[1].getPos() > -40)) {
+            obstacles[1].move(-100);
+        }
+        else {
+            obstacles[1] = ObjectFactory.getNewObstacle();
+        }
+        if (obstacles[1].getPos() == 880 || (obstacles[2].getPos() < 1500 && obstacles[2].getPos() > -40)) {
+            obstacles[2].move(-100);
+        }
+        else {
+            obstacles[2] = ObjectFactory.getNewObstacle();
+        }
+
         //obstacle array for visible objects, once they are not visible, they reset position and objecttype
         //collision checks for free space in vertical axis instead of object
         //move obstacle, if obstacle.getX() < player position, currentScore++;

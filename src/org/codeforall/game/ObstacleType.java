@@ -1,9 +1,9 @@
 package org.codeforall.game;
 
 public enum ObstacleType {
-    TYPE1(250,350),
-    TYPE2(150,250),
-    TYPE3(350,450);
+    TYPE1(200,400),
+    TYPE2(400,600),
+    TYPE3(600,800);
 
     private int height;
     private int yPos;

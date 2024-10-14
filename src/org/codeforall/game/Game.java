@@ -1,5 +1,6 @@
 package org.codeforall.game;
 
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.w3c.dom.css.Rect;
@@ -14,11 +15,17 @@ public class Game {
     private Rectangle secondObstacle;
     private boolean gameOver;
     private int currentScore = 0;
-    public static int highScore = 0;
+    private static int highScore = 0;
+    public final int MAXX = 1000;
+    public final int MAXY = 500;
+    public final int PADDING = 10;
+
     //private Keyboard
 
     public void init() {
-        rectangle = new Rectangle(0,0,1010,510);
+        Canvas.setMaxX(MAXX);
+        Canvas.setMaxY(MAXY);
+        rectangle = new Rectangle(0,0,MAXX+PADDING,MAXY+PADDING);
         rectangle.draw();
         player = new Player();
         //initialize keyboard with player as argument

@@ -1,7 +1,7 @@
 package org.codeforall.game;
 
-
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,6 +16,20 @@ public class Main {
         while (true) {
             game.init();
         }
-        //game.start();
+
+        Canvas.setMaxX(1580);
+        Canvas.setMaxY(1020);
+
+
+        Picture backGround = new Picture(0,0, "resources/background-city.jpg");
+        backGround.draw();
+
+
+        Player superMan = new Player();
+        new MyKeyboardHandler(superMan);
+
+
+
+
     }
 }

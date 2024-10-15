@@ -12,7 +12,7 @@ public class Obstacle {
 
     public Obstacle(ObstacleType obstacleType){
         this.obstacleType = obstacleType;
-        obstaclePosition = new ObstaclePosition(obstacleType.getHeight(),obstacleType.getyPos());
+        obstaclePosition = new ObstaclePosition(obstacleType.getHeight(),obstacleType.getyPos(),40);
         topRect = new Rectangle(Game.MAXX+10,0,40, obstacleType.getHeight());
         botRect = new Rectangle(Game.MAXX+10,obstacleType.getyPos(),40,Game.MAXY-obstacleType.getyPos());//Game.MAXY-obstacleType.getyPos());
         topRect.setColor(Color.BLACK);
@@ -29,6 +29,10 @@ public class Obstacle {
 
     public int getPos(){
         return obstaclePosition.getxPos();
+    }
+
+    public ObstaclePosition getObstaclePosition(){
+        return obstaclePosition;
     }
 
 }

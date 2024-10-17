@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Game {
     //starts game, background, obstacles
-    private int delay = 200;
+    private int delay = 25;
     private Player player;
     private boolean gameOver = false;
     private int currentScore = 0;
@@ -16,7 +16,7 @@ public class Game {
     public static final int MAXX = 1580;
     public static final int MAXY = 1020;
     private Obstacle[] obstacles = new Obstacle[3];
-    Background background = new Background();
+    Background background = new Background(0);
 
     //private Keyboard
 
@@ -41,7 +41,7 @@ public class Game {
             obstacles[i] = ObjectFactory.getNewObstacle();
         }
         //initiate collision detector
-        //collisionDetector = new CollisionDetector(player);
+        CollisionDetector collisionDetector = new CollisionDetector(player);
         //run game
         while (!gameOver) {
             // Pause for a while
@@ -50,12 +50,12 @@ public class Game {
             moveObstacles();
             //check for collisions
             //collisionDetector.check(obstacle linked list)
-            /* for (Object obstacle : obstacles){
-                if (collisionDetector.check(obstacle.getObstaclePosition())){
+            /*for (Object obstacle : obstacles){
+                if (collisionDetector.check(obstacle.getObstaclePosition)){
                     gameOver = true;
                     break;
                 }
-            } */
+            }*/
         }
         //if player collision
         //Use Date for currentScore when start and when end: (int)((endDate.getTime() - startDate.getTime()) / 1000)
@@ -66,21 +66,21 @@ public class Game {
     }
 
     private void moveObstacles(){
-        if (obstacles[0].getPos() > -40) {
-            obstacles[0].move(-100);
+        if (obstacles[0].getPos() > -50) {
+            obstacles[0].move(-12);
            // System.out.println(obstacles[0].getPos());
         }
         else {
             obstacles[0] = ObjectFactory.getNewObstacle();
         }
-        if (obstacles[0].getPos() == 880 || (obstacles[1].getPos() < 1500 && obstacles[1].getPos() > -40)) {
-            obstacles[1].move(-100);
+        if (obstacles[0].getPos() == 1028 || (obstacles[1].getPos() < 1570 && obstacles[1].getPos() > -50)) {
+            obstacles[1].move(-12);
         }
         else {
             obstacles[1] = ObjectFactory.getNewObstacle();
         }
-        if (obstacles[1].getPos() == 880 || (obstacles[2].getPos() < 1500 && obstacles[2].getPos() > -40)) {
-            obstacles[2].move(-100);
+        if (obstacles[1].getPos() == 1028 || (obstacles[2].getPos() < 1570 && obstacles[2].getPos() > -50)) {
+            obstacles[2].move(-12);
         }
         else {
             obstacles[2] = ObjectFactory.getNewObstacle();

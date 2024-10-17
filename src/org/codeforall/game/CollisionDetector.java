@@ -8,9 +8,14 @@ public class CollisionDetector {
     }
 
     public boolean check(ObstaclePosition rect){
-        /*if (player.x <= rect.getRightSide() && player.x+width >= rect.getXPos() && player.y+height >= rect.getYPos() && player.y <= rect.getHeight()){
+        if (player.getPlayerPos() <= rect.getRightSide() &&
+                player.getPlayerPos()+ 50 >= rect.getxPos() &&
+                player.getPlayerPos() + 20 >= rect.getYPos() &&
+                player.getPlayerPos() <= rect.getHeight()) {
             return true;
-        }*/
+        }
         return false;
+
     }
+
 }

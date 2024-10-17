@@ -11,21 +11,29 @@ public class Player {
     private int name;
     private int score;
     private Picture SuperMan;
+    public int playerPos = 480;
+
 
     public Player() {
-        SuperMan = new Picture(0, 250, "resources/supermansprite.png");
+        SuperMan = new Picture(300, 480, "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/supermansprite.png");
         SuperMan.draw();
-
     }
         public void moveDown() {
-            SuperMan.translate(0, 10);
+            SuperMan.translate(0, 20);
+            playerPos += 20;
         }
 
         public void moveUp() {
-            SuperMan.translate(0, -10);
+            SuperMan.translate(0, -20);
+            playerPos -= 20;
         }
 
+    public int getPlayerPos() {
+        return playerPos;
     }
+}
+
+
 
 
 

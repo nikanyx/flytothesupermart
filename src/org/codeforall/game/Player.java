@@ -11,21 +11,41 @@ public class Player {
     private int name;
     private int score;
     private Picture SuperMan;
+    private int height;
+
+
 
     public Player() {
-        SuperMan = new Picture(0, 250, "resources/supermansprite.png");
-        SuperMan.draw();
 
+        SuperMan = new Picture(300, 250, "resources/supermansprite.png");
+        SuperMan.draw();
+        height = SuperMan.getHeight();
     }
-        public void moveDown() {
-            SuperMan.translate(0, 10);
+
+    //Position of my Superman on the canvas
+        public int getY() {
+            if (SuperMan.getY() < 0) {
+               return 0;
         }
+        return SuperMan.getY();
+    }
+
+    //Can move down or up
+        public void moveDown() {
+            if (SuperMan.getY() + height < Game.MAXY) {
+                SuperMan.translate(0, 10);  // Move sprite down if it's not at the bottom
+            }
+        }
+
 
         public void moveUp() {
-            SuperMan.translate(0, -10);
+            if (SuperMan.getY() > 0) {
+                SuperMan.translate(0, -10);  // Move sprite up if it's not at the top
+            }
         }
 
-    }
+
+}
 
 
 

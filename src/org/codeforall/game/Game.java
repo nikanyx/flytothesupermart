@@ -1,10 +1,6 @@
 package org.codeforall.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-
-import java.util.Date;
 
 public class Game {
     //starts game, background, obstacles
@@ -36,6 +32,8 @@ public class Game {
     }
 
     private void start() throws InterruptedException {
+        //initialize background music on the game level. too much?
+        SoundHandler.playBackgroundMusic("resources/audio-game.wav");
         //generate obstacles
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();

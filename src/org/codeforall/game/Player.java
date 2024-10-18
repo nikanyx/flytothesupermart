@@ -10,31 +10,35 @@ public class Player {
     //incorporate key press behaviour
     private int name;
     private int score;
+    private int height;
     private Picture SuperMan;
     public int playerPos = 480;
 
-
     public Player() {
-        SuperMan = new Picture(300, 480, "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/supermansprite.png");
+        SuperMan = new Picture(300, 480, "resources/supermansprite.png");
         SuperMan.draw();
+        height = SuperMan.getHeight();
     }
-        public void moveDown() {
+
+    //Can move down or up
+    public void moveDown() {
+    // Move sprite down if it's not at the bottom
+        if (SuperMan.getY() + height < Game.MAXY) {
             SuperMan.translate(0, 20);
             playerPos += 20;
         }
+    }
 
-        public void moveUp() {
+    public void moveUp() {
+    // Move sprite up if it's not at the top
+        if (SuperMan.getY() > 0) {
             SuperMan.translate(0, -20);
             playerPos -= 20;
         }
+    }
 
     public int getPlayerPos() {
         return playerPos;
     }
 }
-
-
-
-
-
 

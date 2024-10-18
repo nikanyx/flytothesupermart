@@ -1,83 +1,97 @@
 package org.codeforall.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {
     //starts game, background, obstacles
     private int delay = 25;
     private Player player;
     private boolean gameOver = false;
+    private boolean waitingForStart = true;
     private int currentScore = 0;
     private static int highScore = 0;
     public static final int MAXX = 1580;
     public static final int MAXY = 1020;
+    public static final String IMGPREFIX = "resources/";
     private Obstacle[] obstacles = new Obstacle[3];
-    Background background = new Background(0);
-
-    //private Keyboard
+    private Background background = new Background(0);
+    private Picture menu = new Picture(550,375,IMGPREFIX + "start.png");
 
     public void init() {
         Canvas.setMaxX(MAXX);
         Canvas.setMaxY(MAXY);
         player = new Player();
-        new MyKeyboardHandler(player);
+        new MyKeyboardHandler(player,this);
         //show highscore
         //if key press return
-        try {
-            start();
-        }
-        catch (Exception e) {
-            System.out.println("Error");
-        }
+        start();
     }
 
-    private void start() throws InterruptedException {
-        //initialize background music on the game level. too much?
-        SoundHandler.playBackgroundMusic("resources/audio-game.wav");
+    public void start() {
+        //initialize background music on the game level
+        SoundHandler.playBackgroundMusic(IMGPREFIX + "audio-game.wav");
+
         //generate obstacles
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();
         }
+
         //initiate collision detector
         CollisionDetector collisionDetector = new CollisionDetector(player);
+
         //run game
         while (!gameOver) {
-            // Pause for a while
-            Thread.sleep(delay);
-            background.move();
-            moveObstacles();
-            //check for collisions
-            //collisionDetector.check(obstacle linked list)
-            /*for (Object obstacle : obstacles){
-                if (collisionDetector.check(obstacle.getObstaclePosition)){
-                    gameOver = true;
-                    break;
+                try {
+                    // Pause for a while
+                    Thread.sleep(delay);
+                    if (waitingForStart){
+                        menu.draw();
+                    }
+                    else {
+                        menu.delete();
+                        background.move();
+                        moveObstacles();
+
+                        //check for collisions
+                        for (Obstacle obs : obstacles) {
+                            if (collisionDetector.check(obs.getTopObsPosition()) || collisionDetector.check(obs.getBotObsPosition())) {
+                                gameOver = true;
+                                //
+                                break;
+                            }
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
                 }
-            }*/
-        }
+            }
+
+
         //if player collision
         //Use Date for currentScore when start and when end: (int)((endDate.getTime() - startDate.getTime()) / 1000)
         if (currentScore > highScore) {
             highScore = currentScore;
         }
+
         //init();
     }
 
     private void moveObstacles(){
-        if (obstacles[0].getPos() > -50) {
+        if (obstacles[0].getTopPos() > -70) {
             obstacles[0].move(-12);
-           // System.out.println(obstacles[0].getPos());
         }
         else {
             obstacles[0] = ObjectFactory.getNewObstacle();
         }
-        if (obstacles[0].getPos() == 1028 || (obstacles[1].getPos() < 1570 && obstacles[1].getPos() > -50)) {
+        if (obstacles[0].getTopPos() == 1028 || (obstacles[1].getTopPos() < 1570 && obstacles[1].getTopPos() > -70)) {
             obstacles[1].move(-12);
         }
         else {
             obstacles[1] = ObjectFactory.getNewObstacle();
         }
-        if (obstacles[1].getPos() == 1028 || (obstacles[2].getPos() < 1570 && obstacles[2].getPos() > -50)) {
+        if (obstacles[1].getTopPos() == 1028 || (obstacles[2].getTopPos() < 1570 && obstacles[2].getTopPos() > -70)) {
             obstacles[2].move(-12);
         }
         else {
@@ -88,4 +102,14 @@ public class Game {
         //score? move obstacle, if obstacle.getX() < player position, currentScore++;
     }
 
+    public boolean isGameOver(){
+        return gameOver;
+    }
+    public void setGameOver(){
+        gameOver = false;
+    }
+
+    public void setWaitingForStart(){
+        waitingForStart = false;
+    }
 }

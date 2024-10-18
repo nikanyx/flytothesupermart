@@ -13,17 +13,12 @@ public enum ObstacleType {
     private int yPos;
     private String topImg;
     private String botImg;
-    private final String img = "resources/";
 
     ObstacleType(int height, int yPos, String topImg, String botImg) {
         this.height = height;
         this.yPos = yPos;
         this.topImg = topImg;
         this.botImg = botImg;
-        /*this.topImg = new Picture(Game.MAXX+10,0,img+topImg);
-        this.botImg = new Picture(Game.MAXX+10,yPos,img+botImg);
-        this.topImg.draw();
-        this.botImg.draw();*/
     }
 
     public int getHeight(){
@@ -35,10 +30,10 @@ public enum ObstacleType {
     }
 
     public String getTopImg(){
-        return img+topImg;
+        return Game.IMGPREFIX+topImg;
     }
 
     public String getBotImg(){
-        return img+botImg;
+        return Game.IMGPREFIX+botImg;
     }
 }

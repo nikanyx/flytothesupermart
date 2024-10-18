@@ -11,7 +11,7 @@ public class Background {
     Picture background;
 
     public Background(int startPos){
-        background = new Picture(startPos,0, "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/background-city.jpg");
+        background = new Picture(startPos,0, Game.IMGPREFIX + "background-city2.jpg");
         background.draw();
 
     }
@@ -19,7 +19,6 @@ public class Background {
     public void move(){
         background.translate(-1,0);
         backgroundPos --;
-        System.out.println(backgroundPos);
         /*if (backgroundPos < -980) {
             new Background(1580);
         }*/

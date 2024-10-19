@@ -1,8 +1,6 @@
 package org.codeforall.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {
     //starts game, background, obstacles
@@ -17,7 +15,14 @@ public class Game {
     public static final String IMGPREFIX = "resources/";
     private Obstacle[] obstacles = new Obstacle[3];
     private Background background = new Background(0);
-    private Picture menu = new Picture(550,375,IMGPREFIX + "start.png");
+
+
+
+
+
+    //no fim retirar a image
+    //private Picture menu = new Picture(550,375,IMGPREFIX + "Menu-Image.png");
+    private Menu menu = new Menu(player);
 
     public void init() {
         Canvas.setMaxX(MAXX);
@@ -30,8 +35,9 @@ public class Game {
     }
 
     public void start() {
-        //initialize background music on the game level
-        SoundHandler.playBackgroundMusic(IMGPREFIX + "audio-game.wav");
+        //initialize background music on menu
+       // SoundHandler.playBackgroundMusic(IMGPREFIX + "audio-menu.wav");
+
 
         //generate obstacles
         for (int i = 0; i < obstacles.length; i++){
@@ -47,17 +53,24 @@ public class Game {
                     // Pause for a while
                     Thread.sleep(delay);
                     if (waitingForStart){
-                        menu.draw();
+                        //menu vai aparecer
+                        menu.showMenu();
+
                     }
                     else {
-                        menu.delete();
-                        background.move();
+                       // menu desaparece
+                        menu.hide();
+                        //SoundHandler.playBackgroundMusic(IMGPREFIX + "audio-game.wav");
+                        background.loopBackground();
+
                         moveObstacles();
 
                         //check for collisions
                         for (Obstacle obs : obstacles) {
                             if (collisionDetector.check(obs.getTopObsPosition()) || collisionDetector.check(obs.getBotObsPosition())) {
                                 gameOver = true;
+
+                                menu.showLose();
                                 //
                                 break;
                             }
@@ -113,3 +126,6 @@ public class Game {
         waitingForStart = false;
     }
 }
+
+
+

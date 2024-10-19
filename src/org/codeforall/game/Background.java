@@ -19,7 +19,7 @@ public class Background {
     public void move(){
         background.translate(-1,0);
         backgroundPos --;
-        System.out.println(backgroundPos);
+        //System.out.println(backgroundPos);
         /*if (backgroundPos < -980) {
             new Background(1580);
         }*/

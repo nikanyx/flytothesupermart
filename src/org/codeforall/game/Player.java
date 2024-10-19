@@ -15,7 +15,7 @@ public class Player {
     public int playerPos = 480;
 
     public Player() {
-        SuperMan = new Picture(300, 480, "resources/supermansprite.png");
+        SuperMan = new Picture(300, 480, "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/supermansprite2.png");
         SuperMan.draw();
         height = SuperMan.getHeight();
     }

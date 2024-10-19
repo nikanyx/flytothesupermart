@@ -1,18 +1,19 @@
 package org.codeforall.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 
 public class Game {
     //starts game, background, obstacles
     private int delay = 25;
     private Player player;
     private boolean gameOver = false;
-    private int currentScore = 0;
-    private static int highScore = 0;
+
     public static final int MAXX = 1580;
     public static final int MAXY = 1020;
     private Obstacle[] obstacles = new Obstacle[3];
     Background background = new Background(0);
+    ScoreData score = new ScoreData();
 
     //private Keyboard
 
@@ -38,14 +39,18 @@ public class Game {
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();
         }
+        score.highScore();
         //initiate collision detector
         CollisionDetector collisionDetector = new CollisionDetector(player);
+
         //run game
         while (!gameOver) {
             // Pause for a while
             Thread.sleep(delay);
             background.move();
             moveObstacles();
+            score.highScore();
+            score.currentScore();
             //check for collisions
             //collisionDetector.check(obstacle linked list)
             /*for (Object obstacle : obstacles){
@@ -57,11 +62,12 @@ public class Game {
         }
         //if player collision
         //Use Date for currentScore when start and when end: (int)((endDate.getTime() - startDate.getTime()) / 1000)
-        if (currentScore > highScore) {
+        /*if (currentScore > highScore) {
             highScore = currentScore;
-        }
+        }*/
         //init();
     }
+
 
     private void moveObstacles(){
         if (obstacles[0].getPos() > -50) {

@@ -29,7 +29,7 @@ public class ObstaclePosition {
         return xPos + width;
     }
 
-    public int getHeight(){
-        return height;
+    public int getBottomSide(){
+        return yPos + height;
     }
 }

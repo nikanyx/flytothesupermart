@@ -1,41 +1,51 @@
 package org.codeforall.game;
 
+
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+
 
 public class SoundHandler {
 
-    // Play a sound file
-    /*public static void playSound(String soundFilePath) {
-        try {
-            File soundFile = new File("resources/audio-menu.wav");  // Specify the file path of the Superman theme
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            // Handle any exceptions
-        }
-    }*/
+    private Clip clip;
 
-    // Play background music (looping) in the Main
-    public static void playBackgroundMusic(String soundFilePath) {
-        try {
-            //Declare the soundfile from class File
-            File soundFile = new File(soundFilePath);
-            //AudioInputStream (audio) like the fileInputStream. AudioSystem to assess the audio data
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-            //Clip is the Class that can be use to reload the last file
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loop the background music
-            clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
+    public SoundHandler(String path) {
+        initClip(path);
     }
 
 
+    private void initClip(String path) {
+        try {
+            File sound = new File(path); // intellij only
+            // jar only [start]
+            /*
+            path = "/" + path;
+            InputStream is = SoundHandler.class.getResourceAsStream(path);
+            if (is == null) {
+                throw new RuntimeException("Resource not found: " + path);
+            }
+            InputStream sound = new BufferedInputStream(is);
+            */
+            // jar only [end]
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(sound);
+            clip = AudioSystem.getClip();
+            clip.open(audioStream);
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void play() {
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
+    }
+
+    public void stop() {
+        clip.setFramePosition(0);
+        clip.stop();
+    }
 }
 

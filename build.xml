@@ -7,7 +7,7 @@
     <target name="compile" depends="prepare">
         <javac srcdir="src" destdir="build/classes" source="1.7" target="1.7">
             <classpath>
-		    <fileset dir="libs"> <!-- this should match the name of your library folder -->
+                <fileset dir="libs"> <!-- this should match the name of your library folder -->
                     <include name="*.jar"/>
                 </fileset>
             </classpath>
@@ -19,7 +19,7 @@
             <manifest>
                 <attribute name="Main-Class" value="org.codeforall.game.Main"/> <!-- change the path to your main -->
             </manifest>
-	    <zipgroupfileset dir="libs"/> <!-- this should match the name of your library folder -->
+            <zipgroupfileset dir="libs"/> <!-- this should match the name of your library folder -->
             <fileset dir="resources"/>
         </jar>
     </target>

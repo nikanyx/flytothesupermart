@@ -1,7 +1,5 @@
 package org.codeforall.game;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Obstacle {
@@ -9,8 +7,8 @@ public class Obstacle {
     private ObstacleType obstacleType;
     private ObstaclePosition topObsPosition;
     private ObstaclePosition botObsPosition;
-    Picture topImg;
-    Picture botImg;
+    private Picture topImg;
+    private Picture botImg;
 
     public Obstacle(ObstacleType obstacleType){
         this.obstacleType = obstacleType;
@@ -39,8 +37,13 @@ public class Obstacle {
     public ObstaclePosition getTopObsPosition(){
         return topObsPosition;
     }
+
     public ObstaclePosition getBotObsPosition(){
         return botObsPosition;
     }
 
+    public void cleanObsImg(){
+        topImg.delete();
+        botImg.delete();
+    }
 }

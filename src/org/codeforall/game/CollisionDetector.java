@@ -11,11 +11,9 @@ public class CollisionDetector {
         if (player.getXPos() <= rect.getRightSide() &&
                 player.getXPos() + player.getWidth() >= rect.getxPos() &&
                 player.getYPos() + player.getHeight() >= rect.getYPos() &&
-                player.getYPos() <= rect.getHeight()) {
+                player.getYPos() <= rect.getBottomSide()) {
             return true;
         }
         return false;
-
     }
-
 }

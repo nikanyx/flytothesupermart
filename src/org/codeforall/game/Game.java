@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {
-    public static final String IMGPREFIX = ""; //empty string for jar, resources/ for intellij
+    public static final String IMGPREFIX = "resources/"; //empty string for jar, resources/ for intellij
     //public static final String IMGPREFIX = "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/"; //rui
     public static final int MAXX = 1580;
     public static final int MAXY = 1020;
@@ -17,10 +17,11 @@ public class Game {
     private Obstacle[] obstacles = new Obstacle[3];
     private ScoreData score = new ScoreData();
     private FileManager fileManager = new FileManager(score);
-    private Picture menu;
+    private Menu menu;
     private SoundHandler menuMusic;
+    private SoundHandler lostMusic;
     private SoundHandler gameMusic;
-    private boolean waitingForStart = true;
+    private int waitingForStart = 1;
 
     public Game(){
         Canvas.setMaxX(MAXX);
@@ -32,9 +33,10 @@ public class Game {
         player = new Player();
         new MyKeyboardHandler(player,this);
         collisionDetector = new CollisionDetector(player);
-        menu = new Picture(550,375,Game.IMGPREFIX + "start.png");
+        menu = new Menu();
         menuMusic = new SoundHandler(Game.IMGPREFIX + "audio-menu.wav");
         gameMusic = new SoundHandler(Game.IMGPREFIX + "audio-game.wav");
+        lostMusic = new SoundHandler(Game.IMGPREFIX + "babylost.wav");
         start();
     }
 
@@ -49,16 +51,19 @@ public class Game {
             try {
                 // Pause for a while
                 Thread.sleep(delay);
-                if (waitingForStart){
-                    menu.draw();
+                if (waitingForStart == 1){
+                    menu.showMenu();
                     //play menu music
                     menuMusic.play();
+
                 }
-                else {
-                    menu.delete();
+                else if(waitingForStart == 0) {
+                    menu.hide();
+                    menu.hideLose();
 
                     //stop menu music, play game music
                     menuMusic.stop();
+                    lostMusic.stop();
                     gameMusic.play();
 
                     //score
@@ -71,20 +76,23 @@ public class Game {
                     //check for collisions
                     for (Obstacle obs : obstacles) {
                         if (collisionDetector.check(obs.getTopObsPosition()) || collisionDetector.check(obs.getBotObsPosition())) {
-                            gameMusic.stop();
-
-                            //reset obstacles
-                            resetObstacles();
-
-                            //return to menu
-                            waitingForStart = true;
-
-                            //Use Date for currentScore when start and when end: (int)((endDate.getTime() - startDate.getTime()) / 1000)
-                            score.updateHighScore();
-
+                            waitingForStart = 2;
                             break;
                         }
                     }
+                }
+                else {
+                    gameMusic.stop();
+                    lostMusic.play();
+
+                    //reset obstacles
+                    resetObstacles();
+
+                    //shows lost screen
+                    menu.showLose();
+
+                    //update highscore if lower than current score
+                    score.updateHighScore();
                 }
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
@@ -124,7 +132,11 @@ public class Game {
         }
     }
 
-    public void setWaitingForStart(){
-        waitingForStart = false;
+    public int getWaitingForStart() {
+        return waitingForStart;
+    }
+
+    public void setWaitingForStart(int i){
+        waitingForStart = i;
     }
 }

@@ -47,7 +47,9 @@ public class MyKeyboardHandler implements KeyboardHandler {
         }
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
-            game.setWaitingForStart();
+            if (game.getWaitingForStart() > 0) {
+                game.setWaitingForStart(0);
+            }
         }
 
     }

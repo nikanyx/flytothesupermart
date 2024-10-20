@@ -8,7 +8,9 @@ import java.io.InputStream;
 
 public class SoundHandler {
     private Clip clip;
+    private String path;
     public SoundHandler(String path) {
+        this.path = path;
         initClip(path);
     }
 
@@ -34,7 +36,9 @@ public class SoundHandler {
     }
 
     public void play() {
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        if (path != Game.IMGPREFIX + "babylost.wav") {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
         clip.start();
     }
 

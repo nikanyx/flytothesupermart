@@ -32,4 +32,10 @@ public class ObstaclePosition {
     public int getBottomSide(){
         return yPos + height;
     }
+
+    public void resetPos(int newYPos, int newHeight){
+        xPos = Game.MAXX;
+        height = newHeight;
+        yPos = newYPos;
+    }
 }

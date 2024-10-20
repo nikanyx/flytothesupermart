@@ -1,20 +1,18 @@
 package org.codeforall.game;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Game {
+
+public class Game{
     public static final String IMGPREFIX = "resources/"; //empty string for jar, resources/ for intellij
     //public static final String IMGPREFIX = "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/"; //rui
-    public static final int MAXX = 1580;
-    public static final int MAXY = 1020;
-    private static int highScore = 0;
-    private int currentScore = 0;
+    public static final int MAXX = 1280;
+    public static final int MAXY = 720;
     private int delay = 25;
     private Background bg;
     private Player player;
     private CollisionDetector collisionDetector;
-    private Obstacle[] obstacles = new Obstacle[3];
+    private Obstacle[] obstacles = new Obstacle[2];
     private ScoreData score = new ScoreData();
     private FileManager fileManager = new FileManager(score);
     private Menu menu;
@@ -44,6 +42,7 @@ public class Game {
         //generate obstacles
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();
+            System.out.println(obstacles[i].getBotObsPosition().getYPos());
         }
 
         //run game
@@ -77,6 +76,12 @@ public class Game {
                     for (Obstacle obs : obstacles) {
                         if (collisionDetector.check(obs.getTopObsPosition()) || collisionDetector.check(obs.getBotObsPosition())) {
                             waitingForStart = 2;
+
+                            //reset obstacles
+                            for (Obstacle obst : obstacles) {
+                                obst.resetObstacle();
+                            }
+
                             break;
                         }
                     }
@@ -84,9 +89,6 @@ public class Game {
                 else {
                     gameMusic.stop();
                     lostMusic.play();
-
-                    //reset obstacles
-                    resetObstacles();
 
                     //shows lost screen
                     menu.showLose();
@@ -101,34 +103,18 @@ public class Game {
     }
 
     private void moveObstacles(){
-        //obstacle array for visible objects; once they are not visible, they are instantiated with new Position and Type
-        if (obstacles[0].getTopPos() > -70) {
-            obstacles[0].move(-12);
-        }
-        else {
-            obstacles[0].cleanObsImg();
-            obstacles[0] = ObjectFactory.getNewObstacle();
-        }
-        if (obstacles[0].getTopPos() == 1028 || (obstacles[1].getTopPos() < 1570 && obstacles[1].getTopPos() > -70)) {
-            obstacles[1].move(-12);
-        }
-        else {
-            obstacles[1].cleanObsImg();
-            obstacles[1] = ObjectFactory.getNewObstacle();
-        }
-        if (obstacles[1].getTopPos() == 1028 || (obstacles[2].getTopPos() < 1570 && obstacles[2].getTopPos() > -70)) {
-            obstacles[2].move(-12);
-        }
-        else {
-            obstacles[2].cleanObsImg();
-            obstacles[2] = ObjectFactory.getNewObstacle();
-        }
-    }
+        //obstacle movement; once they are not visible, obstacletype and obstacleposition are reset
+        for (int i = 0; i < obstacles.length; i++) {
 
-    private void resetObstacles(){
-        for (int i = 0; i < obstacles.length; i++){
-            obstacles[i].cleanObsImg();
-            obstacles[i] = ObjectFactory.getNewObstacle();
+            if ((i == 0 && obstacles[0].getTopPos() > -70) ||
+                    (i != 0 && obstacles[i-1].getTopPos() == 644) ||
+                    (obstacles[i].getTopPos() < 1280 && obstacles[i].getTopPos() > -70)){
+                obstacles[i].move(-12);
+            }
+            else if (obstacles[i].getTopPos() < -70){
+                obstacles[i].resetObstacle();
+                System.out.println(obstacles[i].getBotObsPosition().getYPos());
+            }
         }
     }
 

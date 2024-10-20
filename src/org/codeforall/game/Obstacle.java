@@ -12,8 +12,8 @@ public class Obstacle {
 
     public Obstacle(ObstacleType obstacleType){
         this.obstacleType = obstacleType;
-        this.topImg = new Picture(Game.MAXX+10,0,obstacleType.getTopImg());
-        this.botImg = new Picture(Game.MAXX+10,obstacleType.getyPos(),obstacleType.getBotImg());
+        this.topImg = new Picture(Game.MAXX,0,obstacleType.getTopImg());
+        this.botImg = new Picture(Game.MAXX,obstacleType.getyPos(),obstacleType.getBotImg());
         this.topImg.draw();
         this.botImg.draw();
         topObsPosition = new ObstaclePosition(0,obstacleType.getHeight(),70);
@@ -30,6 +30,7 @@ public class Obstacle {
     public int getTopPos(){
         return topObsPosition.getxPos();
     }
+
     public int getBotPos(){
         return botObsPosition.getxPos();
     }
@@ -42,8 +43,15 @@ public class Obstacle {
         return botObsPosition;
     }
 
-    public void cleanObsImg(){
+    public void resetObstacle(){
+        obstacleType = ObstacleType.values()[(int) (Math.random() * ObstacleType.values().length)];
         topImg.delete();
+        topImg = new Picture(Game.MAXX,0,obstacleType.getTopImg());
+        topImg.draw();
+        topObsPosition.resetPos(0,obstacleType.getHeight());
         botImg.delete();
+        botImg = new Picture(Game.MAXX,obstacleType.getyPos(),obstacleType.getBotImg());
+        botImg.draw();
+        botObsPosition.resetPos(obstacleType.getyPos(), botImg.getHeight());
     }
 }

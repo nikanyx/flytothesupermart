@@ -3,11 +3,6 @@ package org.codeforall.game;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player {
-    //create player with sprite
-    //determine movement -> new class?
-    //incorporate key press behaviour
-    private int name;
-    private int score;
     private int height;
     private Picture superMan;
     private int xPos = 300;
@@ -39,12 +34,15 @@ public class Player {
     public int getYPos() {
         return yPos;
     }
+
     public int getXPos(){
         return xPos;
     }
+
     public int getHeight(){
         return height;
     }
+
     public int getWidth(){
         return superMan.getWidth();
     }

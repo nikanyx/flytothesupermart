@@ -1,11 +1,34 @@
 package org.codeforall.game;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 
-public class FileManager { /*
+public class FileManager {
+    public void saveHighScore() {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter("highscore.txt", false));
+            bw.write("" + ScoreData.getHighScore());
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+        }
+    }
+
+        public void loadHighScore(){
+            BufferedReader br = null;
+            String line = "";
+            try {
+                br = new BufferedReader(new FileReader("highscore.txt"));
+                line = br.readLine();
+                br.close();
+            } catch (IOException e) {
+                line = "";
+            }
+        }
+
+    /*
     int highScore;
 
     FileOutputStream topScore;

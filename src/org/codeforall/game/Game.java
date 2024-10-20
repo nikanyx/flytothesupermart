@@ -39,7 +39,6 @@ public class Game {
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();
         }
-        score.highScore();
         //initiate collision detector
         CollisionDetector collisionDetector = new CollisionDetector(player);
 
@@ -50,6 +49,7 @@ public class Game {
             background.move();
             moveObstacles();
             score.highScore();
+
             score.currentScore();
             //check for collisions
             //collisionDetector.check(obstacle linked list)

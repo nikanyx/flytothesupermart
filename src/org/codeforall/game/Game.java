@@ -8,15 +8,12 @@ public class Game {
     //public static final String IMGPREFIX = "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/"; //rui
     public static final int MAXX = 1580;
     public static final int MAXY = 1020;
-    private static int highScore = 0;
-    private int currentScore = 0;
     private int delay = 25;
     private Background bg;
     private Player player;
     private CollisionDetector collisionDetector;
     private Obstacle[] obstacles = new Obstacle[3];
     private ScoreData score = new ScoreData();
-    private FileManager fileManager = new FileManager(score);
     private Menu menu;
     private SoundHandler menuMusic;
     private SoundHandler lostMusic;
@@ -45,6 +42,8 @@ public class Game {
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();
         }
+        //check for a saved highscore
+        score.loadHighScore();
 
         //run game
         while (true) {

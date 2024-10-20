@@ -6,7 +6,7 @@ public class ObstaclePosition {
     private int width;
     private int height;
 
-    public ObstaclePosition(int height, int yPos, int width){
+    public ObstaclePosition(int yPos, int height, int width){
         xPos = Game.MAXX;
         this.height = height;
         this.yPos = yPos;
@@ -29,7 +29,7 @@ public class ObstaclePosition {
         return xPos + width;
     }
 
-    public int getHeight(){
-        return height;
+    public int getBottomSide(){
+        return yPos + height;
     }
 }

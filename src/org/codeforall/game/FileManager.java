@@ -5,11 +5,17 @@ import java.awt.*;
 import java.io.*;
 
 public class FileManager {
+    private ScoreData score;
+
+    public FileManager(ScoreData score){
+        this.score = score;
+    }
+
     public void saveHighScore() {
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter("highscore.txt", false));
-            bw.write("" + ScoreData.getHighScore());
+            bw.write("" + score.getHighScore());
             bw.flush();
             bw.close();
         } catch (IOException e) {

@@ -1,45 +1,49 @@
 package org.codeforall.game;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Obstacle {
 
     private ObstacleType obstacleType;
-    private ObstaclePosition obstaclePosition;
-    /*private Rectangle topRect;
-    private Rectangle botRect;*/
-    Picture topImg;
-    Picture botImg;
+    private ObstaclePosition topObsPosition;
+    private ObstaclePosition botObsPosition;
+    private Picture topImg;
+    private Picture botImg;
 
     public Obstacle(ObstacleType obstacleType){
         this.obstacleType = obstacleType;
-        obstaclePosition = new ObstaclePosition(obstacleType.getHeight(),obstacleType.getyPos(),70);
-        /*topRect = new Rectangle(Game.MAXX+10,0,40, obstacleType.getHeight());
-        botRect = new Rectangle(Game.MAXX+10,obstacleType.getyPos(),40,Game.MAXY-obstacleType.getyPos());//Game.MAXY-obstacleType.getyPos());
-        topRect.setColor(Color.BLACK);
-        botRect.setColor(Color.BLUE);
-        topRect.fill();
-        botRect.fill();*/
         this.topImg = new Picture(Game.MAXX+10,0,obstacleType.getTopImg());
         this.botImg = new Picture(Game.MAXX+10,obstacleType.getyPos(),obstacleType.getBotImg());
         this.topImg.draw();
         this.botImg.draw();
+        topObsPosition = new ObstaclePosition(0,obstacleType.getHeight(),70);
+        botObsPosition = new ObstaclePosition(obstacleType.getyPos(), botImg.getHeight(), 70);
     }
 
     public void move(int x){
         topImg.translate(x,0);
         botImg.translate(x,0);
-        obstaclePosition.setxPos(x);
+        topObsPosition.setxPos(x);
+        botObsPosition.setxPos(x);
     }
 
-    public int getPos(){
-        return obstaclePosition.getxPos();
+    public int getTopPos(){
+        return topObsPosition.getxPos();
+    }
+    public int getBotPos(){
+        return botObsPosition.getxPos();
     }
 
-    public ObstaclePosition getObstaclePosition(){
-        return obstaclePosition;
+    public ObstaclePosition getTopObsPosition(){
+        return topObsPosition;
     }
 
+    public ObstaclePosition getBotObsPosition(){
+        return botObsPosition;
+    }
+
+    public void cleanObsImg(){
+        topImg.delete();
+        botImg.delete();
+    }
 }

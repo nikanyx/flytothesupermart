@@ -14,7 +14,6 @@ public class Game{
     private CollisionDetector collisionDetector;
     private Obstacle[] obstacles = new Obstacle[2];
     private ScoreData score = new ScoreData();
-    private FileManager fileManager = new FileManager(score);
     private Menu menu;
     private SoundHandler menuMusic;
     private SoundHandler lostMusic;
@@ -39,11 +38,14 @@ public class Game{
     }
 
     private void start() {
+
         //generate obstacles
         for (int i = 0; i < obstacles.length; i++){
             obstacles[i] = ObjectFactory.getNewObstacle();
-            System.out.println(obstacles[i].getBotObsPosition().getYPos());
         }
+
+        //check for a saved highscore
+        score.loadHighScore();
 
         //run game
         while (true) {
@@ -52,9 +54,9 @@ public class Game{
                 Thread.sleep(delay);
                 if (waitingForStart == 1){
                     menu.showMenu();
+
                     //play menu music
                     menuMusic.play();
-
                 }
                 else if(waitingForStart == 0) {
                     menu.hide();
@@ -65,11 +67,13 @@ public class Game{
                     lostMusic.stop();
                     gameMusic.play();
 
-                    //score
+                    //move background
+                    bg.move();
+
+                    //show score and highscore
                     score.highScore();
                     score.currentScore();
 
-                    //bgImg.move();
                     moveObstacles();
 
                     //check for collisions
@@ -87,6 +91,7 @@ public class Game{
                     }
                 }
                 else {
+                    //stop game music, play menu music
                     gameMusic.stop();
                     lostMusic.play();
 
@@ -113,7 +118,6 @@ public class Game{
             }
             else if (obstacles[i].getTopPos() < -70){
                 obstacles[i].resetObstacle();
-                System.out.println(obstacles[i].getBotObsPosition().getYPos());
             }
         }
     }

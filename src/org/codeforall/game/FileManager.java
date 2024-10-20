@@ -1,54 +1,36 @@
 package org.codeforall.game;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 
 public class FileManager {
-    private ScoreData score;
 
-    public FileManager(ScoreData score){
-        this.score = score;
-    }
-
-    public void saveHighScore() {
+    public void saveHighScore(String highscore) {
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter("highscore.txt", false));
-            bw.write("" + score.getHighScore());
+            bw = new BufferedWriter(new FileWriter(Game.IMGPREFIX + "highscore.txt", false));
+            bw.write("" + highscore);
             bw.flush();
             bw.close();
         } catch (IOException e) {
         }
     }
 
-        public void loadHighScore(){
+        public int loadHighScore(){
             BufferedReader br = null;
             String line = "";
+            int number;
             try {
-                br = new BufferedReader(new FileReader("highscore.txt"));
+                br = new BufferedReader(new FileReader(Game.IMGPREFIX + "highscore.txt"));
                 line = br.readLine();
                 br.close();
             } catch (IOException e) {
                 line = "";
             }
+            try {
+                number = Integer.valueOf(line);
+            } catch (NumberFormatException e) {
+                number = 0;
+            }
+            return number;
         }
-
-    /*
-    int highScore;
-
-    FileOutputStream topScore;
-
-    {
-        try {
-            topScore = new FileOutputStream("score.txt");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    String temp = Integer.toString(ScoreData.getHighScore());
-    byte[] buffer = temp.getBytes();
-    topScore.write(buffer);
-    topScore.close(); */
 }

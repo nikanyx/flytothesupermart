@@ -6,8 +6,8 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Game {
     public static final String IMGPREFIX = "resources/"; //empty string for jar, resources/ for intellij
     //public static final String IMGPREFIX = "/Users/codecadet/workspace/yellowgame/untitled-yellow-game/resources/"; //rui
-    public static final int MAXX = 1580;
-    public static final int MAXY = 1020;
+    public static final int MAXX = 1280;
+    public static final int MAXY = 720;
     private static int highScore = 0;
     private int currentScore = 0;
     private int delay = 25;
@@ -56,6 +56,7 @@ public class Game {
                     //play menu music
                     menuMusic.play();
 
+
                 }
                 else if(waitingForStart == 0) {
                     menu.hide();
@@ -65,6 +66,7 @@ public class Game {
                     menuMusic.stop();
                     lostMusic.stop();
                     gameMusic.play();
+                    bg.move();
 
                     //score
                     score.highScore();

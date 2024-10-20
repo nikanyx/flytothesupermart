@@ -12,9 +12,9 @@ public class Menu {
 
 
     public Menu() {
-        blackBG = new Rectangle(0,0, Game.MAXX + 10, Game.MAXY + 10);
-        menu = new Picture(270, 150, Game.IMGPREFIX + "Menu-Image.png");
-        youLost = new Picture(270, 150, Game.IMGPREFIX + "Lost.png");
+        blackBG = new Rectangle(0,0, Game.MAXX *2 + 10, Game.MAXY * 2 + 10);
+        menu = new Picture(250, 30, Game.IMGPREFIX + "Menu-Image.png");
+        youLost = new Picture(250, 30, Game.IMGPREFIX + "Lost.png");
     }
 
     public void showMenu(){

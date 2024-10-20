@@ -8,6 +8,8 @@ public class ScoreData{
     private int i = -1;
     private int cScore = 0;
     private int hScore = 0;
+    private FileManager scoreUpdate = new FileManager();
+
     private Text currentScore = new Text(50, 70, "         SCORE: ");
     private Text highScore = new Text(50, 30, "HIGHSCORE: ");
 
@@ -35,13 +37,14 @@ public class ScoreData{
         if (cScore > hScore) {
             hScore = cScore;
             highScore();
+            scoreUpdate.saveHighScore(Integer.toString(hScore));
         }
         cScore = 0;
         i = 0;
     }
 
-    public int getHighScore() {
-        return hScore;
+    public void loadHighScore() {
+        hScore = scoreUpdate.loadHighScore();
     }
 }
 

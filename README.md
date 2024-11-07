@@ -1,4 +1,4 @@
-#The First of Many#
+*The First of Many*
 This project was initiated during the Code for All bootcamp in October. 
 As a first-time programmer working under a deadline, it was quite a challenge! Our mission was to create a simple graphics game within one week.
 Together, we brainstormed the game’s aesthetic and mechanics, focusing on an obstacle-avoidance theme. 
